@@ -46,6 +46,22 @@ Each dataset comes with rich metadata, live map previews, and the ability to dow
 |---|---|
 | ![WMTS Preview](assets/datahub_wmts_preview.png) | ![WFS Preview](assets/datahub_wfs_preview.png) |
 
+### Map — GPU-Accelerated Cartography
+
+A custom mapping engine built on **deck.gl** (WebGL2) with **MapLibre GL** as basemap renderer. It handles millions of features with GPU-accelerated rendering, supports 10+ data source types (GeoJSON, Vector Tiles, WMS, WMTS, WFS, COG, 3D Tiles...), and provides a rich styling system with data-driven expressions, classification (categorized, graduated, rule-based), and client-side filtering.
+
+| Basemap switching | Multi-layer vector overlay |
+|---|---|
+| ![Basemap](assets/map-basemap.png) | ![Vector layers](assets/map-vector.png) |
+
+The map module also supports **3D terrain rendering** with exaggeration controls and **multi-spectral imagery** for advanced analysis (infrared, false-color composites).
+
+| 3D terrain rendering | Forest analysis (infrared) |
+|---|---|
+| ![Relief](assets/map-relief.png) | ![Forest](assets/map-forest.png) |
+
+Consumers interact with a single `CapercaillieMap` API — never with deck.gl or MapLibre directly. Datasets from the DataHub are added with one call (`addDataset(dataset, style, filter)`), assets are fetched and resolved internally.
+
 ### Raven — Visual Workflow Engine
 
 Raven is a **node-based workflow engine** I designed for building automated data pipelines. Users define processing graphs visually — triggers, routing, transformations, imports — and the system executes them asynchronously with full observability.
@@ -82,6 +98,7 @@ capercaillie/
 ├── package/
 │   ├── capercailliepy/ # Shared Python: ORM models, schemas, CRUD, services
 │   ├── capercailliex/  # Web Components library (17+ components, Storybook)
+│   ├── capercaillie-map/  # GPU-accelerated map engine (deck.gl + MapLibre)
 │   └── capercaillie-tool/ # Workflow engine components (triggers, operators)
 ├── db-manager/         # DB admin dashboard (Streamlit)
 ├── admin-manager/      # Org data management (Streamlit)
@@ -107,7 +124,8 @@ capercaillie/
 | **Auth** | JWT (RS256), bcrypt, HTTP-only cookies |
 | **Infra** | Docker, Docker Compose, pnpm workspaces, Poetry |
 | **AI** | Model Context Protocol (MCP) server |
-| **Geospatial** | PostGIS, WFS/WMTS services, NDVI analysis |
+| **Mapping** | deck.gl (WebGL2), MapLibre GL, 3D Tiles, WMS/WMTS/WFS |
+| **Geospatial** | PostGIS, Martin (vector tiles), NDVI analysis |
 
 ---
 
